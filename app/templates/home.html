@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <link rel="stylesheet" href="https://cdn.rawgit.com/Chalarangelo/mini.css/v2.3.7/dist/mini-default.min.css">
+    <link rel="stylesheet"  href="./static/style.css">
+  <meta charset="UTF-8">
+  <title>Alphanumeric Character Recognition </title>
+</head>
+
+<div class="common">
+
+<body>
+
+<header class="sticky row">
+  <div class="col-sm-12 col-md-10 col-md-offset-1">
+  <a href="#" class="logo">Alphanumeric Character Recognition</a>
+  
+  </div>
+</header>
+<div class="row">
+  <div class="col-sm-12 col-md-10 col-md-offset-1">
+    <br/>
+    <h1>Alphanumeric Recognition using PyTorch and Flask <small></h1>
+    <p>
+    Draw an alphabet or a digit in the left box.
+    The predicition and its probability will be shown in the the right box.
+    <p>
+   </br>
+  <div class="boxitem">
+            <canvas id="inputimg" width="196" height="196"></canvas>
+            <button id="clearbtn" class="primary" >Clear</button>
+  </div>
+
+  <div class="boxitem">
+            <div id="predictdigit">0</div>
+            <div id="probStr">Probability: </div>
+  </div>
+  </div>
+</div>
+
+<p>This is a minimalistic end-to-end Machine Learning application.</p>
+
+
+
+<div class="container" style="height: 8rem; position: relative;">
+  <span class="toast doc" style="position: absolute;">
+   Made with <span style="color: #e25555;">&hearts;</span>
+
+  </span>
+</div>
+
+
+<script src = "./static/index.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="//d3js.org/d3.v5.min.js"></script>
+</body>
