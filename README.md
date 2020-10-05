@@ -1,3 +1,4 @@
+# Alphanumeric Recognition
 
 [![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/ashish493/alphanumeric_recognition/issues)
    
@@ -5,23 +6,27 @@
     <img width="500" height="auto" src="images/logo.jpg" alt="Alphanumeric Logo" />
 </p>
    
-Aplhanumeric Recognition is a web application for detecting handwritten characters as well as digits, which is trained on the EMNIST dataset.
+Aplhanumeric Recognition is a web application for detecting handwritten characters as well as digits, which is trained on the EMNIST dataset. 
 
 **Installation**
 
 1. Clone the Repo
 
-```git clone https://github.com/ashish493/alphanumeric_recognition.git```
+  ```git clone https://github.com/ashish493/alphanumeric_recognition.git```
 
 2. Install the dependecies
 
-```pip install -r requirements.txt```
+  ```pip install -r requirements.txt```
 
 3. Run the flask server in the app directory
 
-```python -m flask run```
+  ```python -m flask run```
 
 > Note: We recommend installing the application in a [virtual environment](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/#installing-virtualenv) to prevent conflicts with other projects or packages.
+
+If u want to train the [dataset](https://www.nist.gov/itl/products-and-services/emnist-dataset) yourself, then simply run
+
+  ``` python cnn_train.py```
 
 **Demo**
 
@@ -72,6 +77,8 @@ For PR's of fixes or new features describe about the fix or feature and then add
 
 
 **Acknowledgements**
-My model is based on [this](https://github.com/Giffy/AI_EMNIST-character-recognition/blob/master/EMNIST_byClass_GPU_.ipynb) notebook.
- I took the logo from [this](https://omar-quiambao.squarespace.com/identity/fkjm6v8od4iekqn9hajd07vxtxuzwp) website.
+
+- My model is based on [this](https://github.com/Giffy/AI_EMNIST-character-recognition/blob/master/EMNIST_byClass_GPU_.ipynb) notebook.
+
+- I took the logo from [this](https://omar-quiambao.squarespace.com/identity/fkjm6v8od4iekqn9hajd07vxtxuzwp) website.
 
