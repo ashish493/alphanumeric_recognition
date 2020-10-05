@@ -12,6 +12,7 @@ Aplhanumeric Recognition is a web application for detecting handwritten characte
 1. Clone the Repo
 
 ```git clone https://github.com/ashish493/alphanumeric_recognition.git```
+
 2. Install the dependecies
 
 ```pip install -r requirements.txt```
