@@ -30,7 +30,7 @@ If u want to train the [dataset](https://www.nist.gov/itl/products-and-services/
 
 **Demo**
 
-Because of the larger slug size, I was not able to host on Heroku. If anyone knows a better hosting site for deployent, u can simply create a issue.
+Because of the larger slug size, I was not able to host on Heroku. If anyone knows a better hosting site for deployment, u can simply create a issue.
 
 ```
 -----> Discovering process types
@@ -51,7 +51,7 @@ Outputs
 
 **Deployment Options**
 
-I have provided the ```Dockerfile``` in the [repo](https://github.com/ashish493/alphanumeric_recognition/blob/master/Dockerfile). U can manually build it to get the 'dockerimage' and then deploy it on the cloud or on your respective server. 
+I have provided the ```Dockerfile``` in the [repo](https://github.com/ashish493/alphanumeric_recognition/blob/master/Dockerfile). U can manually build it to get the ```Dockerimage``` and then deploy it on the cloud or on your respective server. 
 
 **How to Contribute**
 
