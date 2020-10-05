@@ -9,20 +9,23 @@ Aplhanumeric Recognition is a web application for detecting handwritten characte
 
 **Installation**
 
-1. Clone the Repo.
-```git clone ```
+1. Clone the Repo
+
+```git clone https://github.com/ashish493/alphanumeric_recognition.git```
 2. Install the dependecies
-```pip install -r requirements```
+
+```pip install -r requirements.txt```
 
 3. Run the flask server in the app directory
 
-``` cd ../alphanumeric_recognition/app/ 
-    python -m flask run
-```    
+```python -m flask run```
+
 > Note: We recommend installing the application in a [virtual environment](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/#installing-virtualenv) to prevent conflicts with other projects or packages.
 
 **Demo**
+
 Because of the larger slug size, I was not able to host on Heroku. If anyone knows a better hosting site for deployent, u can simply create a issue.
+
 ```
 -----> Discovering process types
        Procfile declares types -> (none)
@@ -32,15 +35,20 @@ Because of the larger slug size, I was not able to host on Heroku. If anyone kno
  !     Push failed
 ```
 Meanwhile, I have attached some screenshots of application, after running the server locally.
+
 ![flask_host](images/localhost.png)
+
 Outputs
+
 ![prediction for 2](images/predict_2.png)
 ![prediction for H](images/predict_h.png)
 
 **Deployment Options**
-I have provided the ```Dockerfile``` in the [repo](https://github.com/ashish493/alphanumeric_recognition/blob/master/Dockerfile). U can manually build it get the 'dockerimage' and then deploy it on the cloud or on your respective server. 
+
+I have provided the ```Dockerfile``` in the [repo](https://github.com/ashish493/alphanumeric_recognition/blob/master/Dockerfile). U can manually build it to get the 'dockerimage' and then deploy it on the cloud or on your respective server. 
 
 **How to Contribute**
+
 Since this is a very new project, I would really love your input whether it's :- 
 - Reporting a bug
 - Discussing the current state of the code
