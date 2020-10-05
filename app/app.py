@@ -9,7 +9,7 @@ PORT = 8888
 
 app = Flask(__name__)
 
-model = MyModel('./ml_model/trained_weights.pth', 'cpu')
+model = MyModel('./model/trained_weights.pth', 'cpu')
 CLASS_MAPPING = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabdefghnqrt'
 
 @app.route('/')
