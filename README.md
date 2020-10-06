@@ -10,21 +10,21 @@ Aplhanumeric Recognition is a web application for detecting handwritten characte
 
 **Installation**
 
-1. Clone the Repo
+1. Clone the Repo:-
 
   ```git clone https://github.com/ashish493/alphanumeric_recognition.git```
 
-2. Install the dependecies
+2. Install the dependencies:-
 
   ```pip install -r requirements.txt```
 
-3. Run the flask server in the app directory
+3. Run the flask server in the app directory:-
 
   ```python -m flask run```
 
 > Note: We recommend installing the application in a [virtual environment](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/#installing-virtualenv) to prevent conflicts with other projects or packages.
 
-If u want to train the [dataset](https://www.nist.gov/itl/products-and-services/emnist-dataset) yourself, then simply run
+If u want to train the [dataset](https://www.nist.gov/itl/products-and-services/emnist-dataset) yourself, then simply run:-
 
   ``` python cnn_train.py```
 
