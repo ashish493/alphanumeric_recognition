@@ -1,4 +1,4 @@
-# Alphanumeric Recognition-Hack36.
+# Alphanumeric Recognition-
 
 [![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/ashish493/alphanumeric_recognition/issues)
    
