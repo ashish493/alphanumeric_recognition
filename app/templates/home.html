@@ -21,15 +21,19 @@
 <div class="row">
   <div class="col-sm-12 col-md-10 col-md-offset-1">
     <br/>
-    <h1>Alphanumeric Recognition using PyTorch and Flask <small></h1>
+    <h1>Alphanumeric Recognition using Optimized CNN and Flask <small></h1>
     <p>
     Draw an alphabet or a digit in the left box.
-    The predicition and its probability will be shown in the the right box.
-    <p>
+    The prediction and its probability will be shown in the right box.
+    </p>
+    <div id="model-info" style="background: #f0f8ff; padding: 10px; border-radius: 5px; margin: 10px 0;">
+      <strong>Model Status:</strong> <span id="model-status">Loading...</span>
+    </div>
    </br>
   <div class="boxitem">
             <canvas id="inputimg" width="196" height="196"></canvas>
             <button id="clearbtn" class="primary" >Clear</button>
+            <button id="debugbtn" class="secondary" onclick="onDebugRecognition()" style="margin-left: 10px;">Debug Predict</button>
   </div>
 
   <div class="boxitem">

@@ -12,6 +12,30 @@ window.onload = function(){
     ctxIn.fillRect(0, 0, cvsIn.width, cvsIn.height);
     ctxIn.lineWidth = 7;
     ctxIn.lineCap = "round";
+    
+    // Load model information
+    loadModelInfo();
+}
+
+// Load and display model information
+function loadModelInfo() {
+    $.ajax({
+        url: './model-info',
+        type: 'GET'
+    }).done(function(data) {
+        let statusText = '';
+        if (data.model_type) {
+            statusText = `Using ${data.model_type} model`;
+            if (data.best_validation_accuracy) {
+                statusText += ` (${data.best_validation_accuracy} accuracy)`;
+            }
+        } else {
+            statusText = 'Model loaded successfully';
+        }
+        document.getElementById("model-status").textContent = statusText;
+    }).fail(function() {
+        document.getElementById("model-status").textContent = 'Model status unknown';
+    });
 }
 
 // add cavas events
@@ -90,13 +114,20 @@ function onClear(){
 }
 
 // post data to server for recognition
-function onRecognition() {
+function onRecognition(debug_mode = false) {
     console.time("predict");
 
+    const endpoint = debug_mode ? './predict-debug' : './predict';
+    const data = {img : cvsIn.toDataURL("image/png").replace('data:image/png;base64,','')};
+    
+    if (!debug_mode) {
+        data.debug = 'false';
+    }
+
     $.ajax({
-            url: './predict',
+            url: endpoint,
             type:'POST',
-            data : {img : cvsIn.toDataURL("image/png").replace('data:image/png;base64,','') },
+            data: data,
 
         }).done(function(data) {
 
@@ -110,16 +141,85 @@ function onRecognition() {
     console.timeEnd("time");
 }
 
+// Debug function for detailed analysis
+function onDebugRecognition() {
+    onRecognition(true);
+}
+
 
 function showResult(resultJson){
 
     // show predict digit
     divOut.textContent = resultJson.prediction;
 
-    // show probability
-    document.getElementById("probStr").innerHTML =
-        "Probability : " + resultJson.probability.toFixed(2) + "%";
+    // show probability with confidence level
+    let probabilityText = "Probability: " + resultJson.probability.toFixed(2) + "%";
+    
+    if (resultJson.confidence) {
+        probabilityText += " (" + resultJson.confidence + " confidence)";
+    }
+    
+    if (resultJson.model_type) {
+        probabilityText += " [" + resultJson.model_type + " model]";
+    }
+    
+    document.getElementById("probStr").innerHTML = probabilityText;
 
+    // Add color coding based on confidence
+    let probElement = document.getElementById("probStr");
+    if (resultJson.probability > 80) {
+        probElement.style.color = "green";
+    } else if (resultJson.probability > 60) {
+        probElement.style.color = "orange";
+    } else {
+        probElement.style.color = "red";
+    }
+    
+    // Show debug information if available
+    if (resultJson.debug) {
+        console.log("Debug information:", resultJson.debug);
+        
+        // Show top predictions in console
+        if (resultJson.debug.top_5_predictions) {
+            console.log("Top 5 predictions:");
+            resultJson.debug.top_5_predictions.forEach((pred, idx) => {
+                console.log(`${idx + 1}. '${pred.character}': ${pred.probability.toFixed(2)}%`);
+            });
+        }
+        
+        if (resultJson.debug.message) {
+            console.log(resultJson.debug.message);
+        }
+        
+        // Update UI to show debug info
+        let debugInfo = document.getElementById("debugInfo");
+        if (!debugInfo) {
+            debugInfo = document.createElement("div");
+            debugInfo.id = "debugInfo";
+            debugInfo.style.cssText = "margin-top: 10px; padding: 10px; background: #f0f0f0; border-radius: 5px; font-size: 12px;";
+            document.getElementById("probStr").parentNode.appendChild(debugInfo);
+        }
+        
+        let debugHtml = "<strong>Debug Info:</strong><br>";
+        debugHtml += `Tensor stats: min=${resultJson.debug.tensor_min?.toFixed(3) || 'N/A'}, `;
+        debugHtml += `max=${resultJson.debug.tensor_max?.toFixed(3) || 'N/A'}, `;
+        debugHtml += `mean=${resultJson.debug.tensor_mean?.toFixed(3) || 'N/A'}<br>`;
+        
+        if (resultJson.debug.top_5_predictions) {
+            debugHtml += "Top 5: ";
+            resultJson.debug.top_5_predictions.forEach((pred, idx) => {
+                debugHtml += `${pred.character}(${pred.probability.toFixed(1)}%) `;
+            });
+        }
+        
+        debugInfo.innerHTML = debugHtml;
+    } else {
+        // Hide debug info if not in debug mode
+        let debugInfo = document.getElementById("debugInfo");
+        if (debugInfo) {
+            debugInfo.style.display = "none";
+        }
+    }
 }
 
 

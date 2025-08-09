@@ -4,3 +4,7 @@ pip-log.txt
 .pybuilder/
 .ipynb_checkpoints
 .pyre/
+data/
+EMNIST/ 
+*.pth
+settings.json
