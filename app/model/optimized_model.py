@@ -109,8 +109,16 @@ class OptimizedModel:
                 img_copy = img_copy.transpose(Image.FLIP_TOP_BOTTOM)
                 img_copy.save('debug_rotated270_flipped_v.png')
             
+            # Add horizontal flip (along y-axis) to correct the mirroring issue
+            # This addresses the horizontal mirroring observed in predictions
+            img = img.transpose(Image.FLIP_LEFT_RIGHT)
+            
+            if debug_visualization:
+                img.save('debug_horizontally_flipped.png')
+                print(f"Debug: Horizontally flipped image saved as debug_horizontally_flipped.png (size: {img.size})")
+            
             # Final transformations based on testing
-            # Keep only the 270° rotation for now
+            # Keep the 270° rotation + horizontal flip
             
             if debug_visualization:
                 img.save('debug_final_transform.png')
@@ -155,20 +163,22 @@ class OptimizedModel:
                     try:
                         from PIL import ImageDraw
                         
-                        # Create a side-by-side comparison
-                        comparison = Image.new('L', (28*4, 28), color=128)
+                        # Create a side-by-side comparison with the new step
+                        comparison = Image.new('L', (28*5, 28), color=128)
                         comparison.paste(Image.open('debug_original.png').resize((28, 28)), (0, 0))
                         comparison.paste(Image.open('debug_rotated270.png').resize((28, 28)), (28, 0))
-                        comparison.paste(Image.open('debug_final_transform.png').resize((28, 28)), (56, 0))
-                        comparison.paste(Image.fromarray(img_final, mode='L'), (84, 0))
+                        comparison.paste(Image.open('debug_horizontally_flipped.png').resize((28, 28)), (56, 0))
+                        comparison.paste(Image.open('debug_final_transform.png').resize((28, 28)), (84, 0))
+                        comparison.paste(Image.fromarray(img_final, mode='L'), (112, 0))
                         
                         # Add labels
                         comparison = comparison.convert('RGB')
                         draw = ImageDraw.Draw(comparison)
                         draw.text((2, 2), "Orig", fill=(255, 0, 0))
                         draw.text((30, 2), "R270", fill=(255, 0, 0))
-                        draw.text((58, 2), "Trans", fill=(255, 0, 0))
-                        draw.text((86, 2), "Final", fill=(255, 0, 0))
+                        draw.text((58, 2), "HFlip", fill=(255, 0, 0))
+                        draw.text((86, 2), "Trans", fill=(255, 0, 0))
+                        draw.text((114, 2), "Final", fill=(255, 0, 0))
                         
                         comparison.save('debug_comparison.png')
                         print(f"Debug: Processing steps comparison saved as debug_comparison.png")
