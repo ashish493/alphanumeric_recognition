@@ -12,30 +12,6 @@ window.onload = function(){
     ctxIn.fillRect(0, 0, cvsIn.width, cvsIn.height);
     ctxIn.lineWidth = 7;
     ctxIn.lineCap = "round";
-    
-    // Load model information
-    loadModelInfo();
-}
-
-// Load and display model information
-function loadModelInfo() {
-    $.ajax({
-        url: './model-info',
-        type: 'GET'
-    }).done(function(data) {
-        let statusText = '';
-        if (data.model_type) {
-            statusText = `Using ${data.model_type} model`;
-            if (data.best_validation_accuracy) {
-                statusText += ` (${data.best_validation_accuracy} accuracy)`;
-            }
-        } else {
-            statusText = 'Model loaded successfully';
-        }
-        document.getElementById("model-status").textContent = statusText;
-    }).fail(function() {
-        document.getElementById("model-status").textContent = 'Model status unknown';
-    });
 }
 
 // add cavas events
@@ -114,15 +90,13 @@ function onClear(){
 }
 
 // post data to server for recognition
-function onRecognition(debug_mode = false) {
+function onRecognition() {
     console.time("predict");
 
-    const endpoint = debug_mode ? './predict-debug' : './predict';
+    const endpoint = './predict';
     const data = {img : cvsIn.toDataURL("image/png").replace('data:image/png;base64,','')};
     
-    if (!debug_mode) {
-        data.debug = 'false';
-    }
+    data.debug = 'false';
 
     $.ajax({
             url: endpoint,
@@ -141,11 +115,6 @@ function onRecognition(debug_mode = false) {
     console.timeEnd("time");
 }
 
-// Debug function for detailed analysis
-function onDebugRecognition() {
-    onRecognition(true);
-}
-
 
 function showResult(resultJson){
 
@@ -157,10 +126,6 @@ function showResult(resultJson){
     
     if (resultJson.confidence) {
         probabilityText += " (" + resultJson.confidence + " confidence)";
-    }
-    
-    if (resultJson.model_type) {
-        probabilityText += " [" + resultJson.model_type + " model]";
     }
     
     document.getElementById("probStr").innerHTML = probabilityText;
